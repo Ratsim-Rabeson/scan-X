@@ -26,7 +26,7 @@ if TYPE_CHECKING:
     from textual.app import ComposeResult
 
 
-class ReportScreen(Screen):
+class ReportScreen(Screen[None]):
     """Configure and generate a vulnerability report."""
 
     BINDINGS = [

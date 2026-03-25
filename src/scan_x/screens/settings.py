@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     from textual.app import ComposeResult
 
 
-class SettingsScreen(Screen):
+class SettingsScreen(Screen[None]):
     """Configure API keys, sources, cache, and display settings."""
 
     BINDINGS = [

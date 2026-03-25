@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -23,7 +23,7 @@ def _build_template_context(
     vulns: list[Vulnerability],
     config: ReportConfig,
     metadata: ReportMetadata,
-) -> dict:
+) -> dict[str, Any]:
     """Prepare the Jinja2 template context dictionary."""
     severities = [s.value for s in Severity]
     severity_counts = {s: metadata.severity_summary.get(Severity(s), 0) for s in severities}

@@ -5,7 +5,7 @@ from __future__ import annotations
 import io
 from contextlib import redirect_stdout
 
-import plotext as plt
+import plotext as plt  # type: ignore[import-untyped]
 from textual.widgets import Static
 
 from scan_x.models import Severity, Vulnerability
@@ -39,8 +39,15 @@ class SeverityChart(Static):
     }
     """
 
-    def __init__(self, *args: object, **kwargs: object) -> None:
-        super().__init__("", *args, **kwargs)
+    def __init__(
+        self,
+        *,
+        name: str | None = None,
+        id: str | None = None,  # noqa: A002
+        classes: str | None = None,
+        disabled: bool = False,
+    ) -> None:
+        super().__init__("", name=name, id=id, classes=classes, disabled=disabled)
         self._counts: dict[Severity, int] = {s: 0 for s in _SEVERITY_ORDER}
 
     def update_data(self, vulns: list[Vulnerability]) -> None:

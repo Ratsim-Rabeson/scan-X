@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from textual.containers import Horizontal, Vertical, VerticalScroll
 from textual.screen import Screen
@@ -10,7 +10,6 @@ from textual.widgets import Button, Footer, Header, Static
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
-    from textual.widget import Widget
 
     from scan_x.models.vulnerability import Vulnerability
 
@@ -23,7 +22,7 @@ SEVERITY_COLORS = {
 }
 
 
-def _try_import_severity_badge() -> type[Widget] | None:
+def _try_import_severity_badge() -> type[Any] | None:
     try:
         from scan_x.widgets.severity_badge import SeverityBadge
 
@@ -32,7 +31,7 @@ def _try_import_severity_badge() -> type[Widget] | None:
         return None
 
 
-class DetailScreen(Screen):
+class DetailScreen(Screen[None]):
     """Full detail view for a single vulnerability."""
 
     BINDINGS = [

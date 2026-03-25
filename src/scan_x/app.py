@@ -13,7 +13,7 @@ from scan_x.screens.search import SearchScreen
 from scan_x.screens.settings import SettingsScreen
 
 
-class ScanXApp(App):
+class ScanXApp(App[None]):
     """scan-X: Terminal vulnerability scanner."""
 
     TITLE = "scan-X"
@@ -44,7 +44,7 @@ class ScanXApp(App):
         """Push the home screen on startup."""
         self.push_screen("home")
 
-    def action_push_screen(self, screen_name: str) -> None:
+    async def action_push_screen(self, screen_name: str) -> None:
         """Handle keybinding screen navigation."""
         if screen_name == "help":
             self.push_screen(HelpScreen())
@@ -53,7 +53,7 @@ class ScanXApp(App):
             self.push_screen(screen_name)
 
 
-class HelpScreen(Screen):
+class HelpScreen(Screen[None]):
     """Quick help overlay."""
 
     BINDINGS = [

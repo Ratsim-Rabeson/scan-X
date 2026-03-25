@@ -34,7 +34,7 @@ async def generate_pdf(
         If WeasyPrint is not installed.
     """
     try:
-        import weasyprint  # noqa: TC004
+        import weasyprint  # type: ignore[import-untyped]  # noqa: TC004
     except ImportError as exc:
         raise ImportError(
             "WeasyPrint is required for PDF report generation. "

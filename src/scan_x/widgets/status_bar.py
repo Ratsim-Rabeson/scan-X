@@ -2,9 +2,14 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from textual.containers import Horizontal
 from textual.widget import Widget
 from textual.widgets import Label
+
+if TYPE_CHECKING:
+    from textual.app import ComposeResult
 
 
 class StatusBar(Widget):
@@ -34,10 +39,17 @@ class StatusBar(Widget):
     }
     """
 
-    def __init__(self, *args: object, **kwargs: object) -> None:
-        super().__init__(*args, **kwargs)
+    def __init__(
+        self,
+        *,
+        name: str | None = None,
+        id: str | None = None,  # noqa: A002
+        classes: str | None = None,
+        disabled: bool = False,
+    ) -> None:
+        super().__init__(name=name, id=id, classes=classes, disabled=disabled)
 
-    def compose(self):  # noqa: ANN201
+    def compose(self) -> ComposeResult:
         with Horizontal():
             yield Label("Sources: —", id="sources-label")
             yield Label("Results: 0", id="count-label")

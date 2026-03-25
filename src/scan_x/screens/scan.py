@@ -27,7 +27,7 @@ def _try_import_vuln_table() -> type[Widget] | None:
         return None
 
 
-class ScanScreen(Screen):
+class ScanScreen(Screen[None]):
     """Scan a local project directory for vulnerabilities."""
 
     BINDINGS = [

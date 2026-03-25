@@ -176,7 +176,8 @@ class GitHubAdvisorySource(VulnerabilitySourceBase):
 
         if "errors" in body:
             logger.error("GitHub GraphQL errors: %s", body["errors"])
-        return body.get("data", {})
+        result: dict[str, Any] = body.get("data", {})
+        return result
 
     # ------------------------------------------------------------------
     # Parsing helpers

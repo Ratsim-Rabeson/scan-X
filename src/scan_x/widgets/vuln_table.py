@@ -3,11 +3,15 @@
 from __future__ import annotations
 
 from operator import attrgetter
+from typing import TYPE_CHECKING
 
 from textual.message import Message
 from textual.reactive import reactive
 from textual.widget import Widget
 from textual.widgets import DataTable, Footer
+
+if TYPE_CHECKING:
+    from textual.app import ComposeResult
 
 from scan_x.models import Vulnerability  # noqa: TC001 – used at runtime in method bodies
 from scan_x.widgets.filter_bar import FilterState
@@ -69,8 +73,15 @@ class VulnTable(Widget):
 
     # ── Init ──────────────────────────────────────────────────────────
 
-    def __init__(self, *args: object, **kwargs: object) -> None:
-        super().__init__(*args, **kwargs)
+    def __init__(
+        self,
+        *,
+        name: str | None = None,
+        id: str | None = None,  # noqa: A002
+        classes: str | None = None,
+        disabled: bool = False,
+    ) -> None:
+        super().__init__(name=name, id=id, classes=classes, disabled=disabled)
         self._all_vulns: list[Vulnerability] = []
         self._displayed: list[Vulnerability] = []
         self._filter: FilterState = FilterState()
@@ -79,7 +90,7 @@ class VulnTable(Widget):
 
     # ── Compose ───────────────────────────────────────────────────────
 
-    def compose(self):  # noqa: ANN201
+    def compose(self) -> ComposeResult:
         table: DataTable[str] = DataTable(id="vuln-data-table")
         table.cursor_type = "row"
         yield table

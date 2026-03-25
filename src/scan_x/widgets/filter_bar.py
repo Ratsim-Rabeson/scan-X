@@ -3,12 +3,16 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from typing import TYPE_CHECKING
 
 from textual import on
 from textual.containers import Horizontal
 from textual.message import Message
 from textual.widget import Widget
 from textual.widgets import Checkbox, Label
+
+if TYPE_CHECKING:
+    from textual.app import ComposeResult
 
 from scan_x.models import Severity, Vulnerability, VulnerabilitySource
 
@@ -74,17 +78,20 @@ class FilterBar(Widget):
 
     def __init__(
         self,
-        *args: object,
+        *,
         show_sources: bool = False,
-        **kwargs: object,
+        name: str | None = None,
+        id: str | None = None,  # noqa: A002
+        classes: str | None = None,
+        disabled: bool = False,
     ) -> None:
-        super().__init__(*args, **kwargs)
+        super().__init__(name=name, id=id, classes=classes, disabled=disabled)
         self._show_sources = show_sources
         self._state = FilterState()
 
     # ── Compose ───────────────────────────────────────────────────────
 
-    def compose(self):  # noqa: ANN201
+    def compose(self) -> ComposeResult:
         with Horizontal(id="severity-filters"):
             yield Label("Severity:")
             for sev in _SEVERITY_OPTIONS:

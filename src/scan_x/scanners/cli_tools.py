@@ -6,7 +6,7 @@ import asyncio
 import json
 import logging
 import shutil
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from scan_x.models.project import Dependency, ProjectType, ScanResult, ScanStatus
 
@@ -174,7 +174,7 @@ class GrypeScanner(ScannerBase):
 
 
 def _parse_trivy_results(
-    data: dict,
+    data: dict[str, Any],
 ) -> tuple[list[Vulnerability], list[Dependency]]:
     vulns: list[Vulnerability] = []
     deps: list[Dependency] = []
@@ -232,7 +232,7 @@ def _parse_trivy_results(
 
 
 def _parse_grype_results(
-    data: dict,
+    data: dict[str, Any],
 ) -> tuple[list[Vulnerability], list[Dependency]]:
     vulns: list[Vulnerability] = []
     deps: list[Dependency] = []
@@ -300,7 +300,7 @@ def _trivy_class_to_ecosystem(trivy_class: str) -> str:
     return mapping.get(trivy_class, trivy_class or "unknown")
 
 
-def _extract_cvss_score(vuln_data: dict) -> float | None:
+def _extract_cvss_score(vuln_data: dict[str, Any]) -> float | None:
     cvss = vuln_data.get("CVSS", {})
     for _source, scores in cvss.items():
         v3 = scores.get("V3Score")

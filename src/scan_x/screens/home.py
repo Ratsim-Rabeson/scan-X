@@ -22,7 +22,7 @@ SEVERITY_COLORS = {
 }
 
 
-class HomeScreen(Screen):
+class HomeScreen(Screen[None]):
     """Main dashboard showing summary stats and quick actions."""
 
     BINDINGS = [

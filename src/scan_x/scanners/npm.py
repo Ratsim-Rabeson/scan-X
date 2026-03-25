@@ -13,6 +13,8 @@ from scan_x.models.project import Dependency, ProjectType, ScanResult
 
 if TYPE_CHECKING:
     from pathlib import Path
+
+    from scan_x.models.vulnerability import Vulnerability
 from scan_x.scanners.base import ScannerBase, VulnerabilityAggregator
 
 logger = logging.getLogger(__name__)
@@ -177,7 +179,7 @@ class NpmScanner(ScannerBase):
     # ------------------------------------------------------------------
 
     @staticmethod
-    async def _run_npm_audit(project_path: Path) -> list:
+    async def _run_npm_audit(project_path: Path) -> list[Vulnerability]:
         """Run ``npm audit --json`` and return parsed vulnerability objects."""
         from scan_x.models.vulnerability import (
             AffectedPackage,

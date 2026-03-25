@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections import deque
+from typing import TYPE_CHECKING
 
 from textual import on
 from textual.containers import Horizontal
@@ -10,6 +11,9 @@ from textual.message import Message
 from textual.reactive import reactive
 from textual.widget import Widget
 from textual.widgets import Input, LoadingIndicator
+
+if TYPE_CHECKING:
+    from textual.app import ComposeResult
 
 _MAX_HISTORY = 20
 
@@ -58,11 +62,18 @@ class SearchBar(Widget):
 
     # ── Widget lifecycle ──────────────────────────────────────────────
 
-    def __init__(self, *args: object, **kwargs: object) -> None:
-        super().__init__(*args, **kwargs)
+    def __init__(
+        self,
+        *,
+        name: str | None = None,
+        id: str | None = None,  # noqa: A002
+        classes: str | None = None,
+        disabled: bool = False,
+    ) -> None:
+        super().__init__(name=name, id=id, classes=classes, disabled=disabled)
         self._history: deque[str] = deque(maxlen=_MAX_HISTORY)
 
-    def compose(self):  # noqa: ANN201
+    def compose(self) -> ComposeResult:
         with Horizontal():
             yield Input(placeholder="Search CVEs, packages, keywords...", id="search-input")
             yield LoadingIndicator(id="search-loading", classes="hidden")

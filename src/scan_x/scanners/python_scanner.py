@@ -13,6 +13,8 @@ from scan_x.models.project import Dependency, ProjectType, ScanResult
 
 if TYPE_CHECKING:
     from pathlib import Path
+
+    from scan_x.models.vulnerability import Vulnerability
 from scan_x.scanners.base import ScannerBase, VulnerabilityAggregator
 
 logger = logging.getLogger(__name__)
@@ -183,7 +185,7 @@ class PythonScanner(ScannerBase):
     # ------------------------------------------------------------------
 
     @staticmethod
-    async def _run_pip_audit(project_path: Path) -> list:
+    async def _run_pip_audit(project_path: Path) -> list[Vulnerability]:
         from scan_x.models.vulnerability import (
             AffectedPackage,
             Severity,

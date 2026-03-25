@@ -45,7 +45,7 @@ def _try_import_widgets() -> (
     return search_bar_cls, filter_bar_cls, vuln_table_cls
 
 
-class SearchScreen(Screen):
+class SearchScreen(Screen[None]):
     """Search vulnerabilities across all configured sources."""
 
     BINDINGS = [

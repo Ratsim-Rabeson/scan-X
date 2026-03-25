@@ -47,8 +47,16 @@ class SeverityBadge(Static):
         Severity.NONE: "severity-none",
     }
 
-    def __init__(self, severity: Severity, *args: object, **kwargs: object) -> None:
-        super().__init__(severity.value, *args, **kwargs)
+    def __init__(
+        self,
+        severity: Severity,
+        *,
+        name: str | None = None,
+        id: str | None = None,  # noqa: A002
+        classes: str | None = None,
+        disabled: bool = False,
+    ) -> None:
+        super().__init__(severity.value, name=name, id=id, classes=classes, disabled=disabled)
         self._severity = severity
         self.add_class(self._CSS_CLASS_MAP[severity])
 
