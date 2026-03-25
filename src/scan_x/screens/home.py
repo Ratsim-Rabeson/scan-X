@@ -63,9 +63,9 @@ class HomeScreen(Screen[None]):
                     yield Label("Low", classes="stat-label")
 
             with Horizontal(id="actions-row"):
-                yield Button("🔍 Search Vulns", id="btn-search", variant="primary")
-                yield Button("📂 Scan Project", id="btn-scan", variant="primary")
-                yield Button("📄 Generate Report", id="btn-report", variant="default")
+                yield Button("Search Vulns", id="btn-search", variant="primary")
+                yield Button("Scan Project", id="btn-scan", variant="primary")
+                yield Button("Generate Report", id="btn-report", variant="default")
 
             with Vertical(id="home-chart-container"):
                 yield Static("Severity Distribution", classes="section-title")
