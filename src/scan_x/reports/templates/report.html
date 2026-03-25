@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ metadata.title }}</title>
+    <style>
+{{ css }}
+    </style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header class="report-header">
+    <h1>{{ metadata.title }}</h1>
+    <p class="subtitle">
+        Generated on {{ metadata.generated_at.strftime('%Y-%m-%d %H:%M UTC') }}
+        &middot; scan-X v{{ metadata.scan_x_version }}
+        {% if metadata.source_query %}&middot; Query: <em>{{ metadata.source_query }}</em>{% endif %}
+    </p>
+</header>
+
+<div class="container">
+
+    <!-- ===== Executive Summary ===== -->
+    <section id="summary">
+        <h2>Executive Summary</h2>
+        <div class="summary-cards">
+            <div class="summary-card total">
+                <span class="count">{{ metadata.total_vulnerabilities }}</span>
+                <span class="label">Total</span>
+            </div>
+            {% for sev in severities %}
+            <div class="summary-card {{ sev.lower() }}">
+                <span class="count">{{ severity_counts.get(sev, 0) }}</span>
+                <span class="label">{{ sev }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- ===== Severity Distribution ===== -->
+    {% if metadata.total_vulnerabilities > 0 %}
+    <section id="distribution">
+        <h2>Severity Distribution</h2>
+        <table class="severity-bar-chart">
+            <tbody>
+            {% for sev in severities %}
+            {% set count = severity_counts.get(sev, 0) %}
+            <tr>
+                <td class="bar-label">{{ sev }}</td>
+                <td class="bar-cell">
+                    <div class="bar {{ sev.lower() }}"
+                         style="width: {{ (count / max_severity_count * 100) | round(1) if max_severity_count else 0 }}%;">
+                    </div>
+                </td>
+                <td class="bar-count">{{ count }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    {% endif %}
+
+    <!-- ===== Vulnerability Table ===== -->
+    {% if vulnerabilities %}
+    <section id="vuln-table">
+        <h2>Vulnerability Overview</h2>
+        <table class="vuln-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Severity</th>
+                    <th>CVSS</th>
+                    <th>Packages</th>
+                    <th>Source</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for vuln in vulnerabilities %}
+                <tr>
+                    <td>{{ vuln.id }}</td>
+                    <td>{{ vuln.title }}</td>
+                    <td><span class="badge {{ vuln.severity.value | lower }}">{{ vuln.severity.value }}</span></td>
+                    <td>{{ vuln.cvss_score if vuln.cvss_score is not none else '—' }}</td>
+                    <td>{{ vuln.affected_packages | length }}</td>
+                    <td>{{ vuln.source.value }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    {% endif %}
+
+    <!-- ===== Vulnerability Details ===== -->
+    {% if vulnerabilities %}
+    <section id="details">
+        <h2>Vulnerability Details</h2>
+        {% for vuln in vulnerabilities %}
+        <div class="vuln-detail">
+            <h3>
+                <span class="badge {{ vuln.severity.value | lower }}">{{ vuln.severity.value }}</span>
+                {{ vuln.id }} — {{ vuln.title }}
+            </h3>
+            <div class="meta">
+                <span>CVSS: <strong>{{ vuln.cvss_score if vuln.cvss_score is not none else 'N/A' }}</strong></span>
+                <span>Source: {{ vuln.source.value }}</span>
+                {% if vuln.published_date %}
+                <span>Published: {{ vuln.published_date.strftime('%Y-%m-%d') }}</span>
+                {% endif %}
+            </div>
+
+            <div class="description">{{ vuln.description }}</div>
+
+            {% if vuln.affected_packages %}
+            <table class="packages-table">
+                <thead>
+                    <tr>
+                        <th>Ecosystem</th>
+                        <th>Package</th>
+                        <th>Affected Versions</th>
+                        <th>Fixed Versions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for pkg in vuln.affected_packages %}
+                    <tr>
+                        <td>{{ pkg.ecosystem }}</td>
+                        <td>{{ pkg.name }}</td>
+                        <td>{{ pkg.affected_versions | join(', ') or '—' }}</td>
+                        <td>{{ pkg.fixed_versions | join(', ') or '—' }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+
+            {% if include_remediation and vuln.remediation %}
+            <div class="remediation">
+                <strong>Remediation:</strong> {{ vuln.remediation }}
+            </div>
+            {% endif %}
+
+            {% if vuln.references %}
+            <div class="references">
+                <strong>References:</strong>
+                {% for ref in vuln.references %}
+                    <a href="{{ ref.url }}" target="_blank" rel="noopener">{{ ref.url }}</a>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </section>
+    {% endif %}
+
+</div>
+
+<!-- ===== Footer ===== -->
+<footer class="report-footer">
+    Generated by <strong>scan-X v{{ metadata.scan_x_version }}</strong>
+    on {{ metadata.generated_at.strftime('%Y-%m-%d %H:%M UTC') }}
+    {% if metadata.project_path %}&middot; Project: {{ metadata.project_path }}{% endif %}
+</footer>
+
+</body>
+</html>

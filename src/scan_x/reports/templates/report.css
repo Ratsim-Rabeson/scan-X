@@ -1,0 +1,341 @@
+/* scan-X Vulnerability Report — Stylesheet */
+
+:root {
+    --color-bg: #ffffff;
+    --color-text: #1e1e2e;
+    --color-muted: #585b70;
+    --color-border: #dce0e8;
+    --color-header-bg: #1e1e2e;
+    --color-header-fg: #cdd6f4;
+    --color-critical: #d20f39;
+    --color-high: #e64553;
+    --color-medium: #df8e1d;
+    --color-low: #40a02b;
+    --color-none: #7287fd;
+    --color-accent: #1e66f5;
+    --radius: 6px;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 15px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.6;
+}
+
+/* ---------- Header ---------- */
+
+.report-header {
+    background: var(--color-header-bg);
+    color: var(--color-header-fg);
+    padding: 2rem 2.5rem;
+}
+
+.report-header h1 {
+    margin: 0 0 0.25rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.report-header .subtitle {
+    opacity: 0.8;
+    font-size: 0.9rem;
+}
+
+/* ---------- Container ---------- */
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem;
+}
+
+/* ---------- Section ---------- */
+
+section {
+    margin-bottom: 2.5rem;
+}
+
+section h2 {
+    font-size: 1.25rem;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1rem;
+}
+
+/* ---------- Summary cards ---------- */
+
+.summary-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.summary-card {
+    flex: 1 1 140px;
+    background: #f6f8fa;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.summary-card .count {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.summary-card .label {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.summary-card.total .count { color: var(--color-accent); }
+.summary-card.critical .count { color: var(--color-critical); }
+.summary-card.high .count { color: var(--color-high); }
+.summary-card.medium .count { color: var(--color-medium); }
+.summary-card.low .count { color: var(--color-low); }
+.summary-card.none .count { color: var(--color-none); }
+
+/* ---------- Severity bar chart (CSS-only) ---------- */
+
+.severity-bar-chart {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.severity-bar-chart td {
+    padding: 0.35rem 0.5rem;
+    vertical-align: middle;
+}
+
+.severity-bar-chart .bar-label {
+    width: 100px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-align: right;
+    padding-right: 0.75rem;
+}
+
+.severity-bar-chart .bar-cell {
+    width: auto;
+}
+
+.severity-bar-chart .bar {
+    height: 22px;
+    border-radius: 3px;
+    min-width: 2px;
+    transition: width 0.3s ease;
+}
+
+.severity-bar-chart .bar.critical { background: var(--color-critical); }
+.severity-bar-chart .bar.high { background: var(--color-high); }
+.severity-bar-chart .bar.medium { background: var(--color-medium); }
+.severity-bar-chart .bar.low { background: var(--color-low); }
+.severity-bar-chart .bar.none { background: var(--color-none); }
+
+.severity-bar-chart .bar-count {
+    width: 50px;
+    text-align: left;
+    padding-left: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+}
+
+/* ---------- Badges ---------- */
+
+.badge {
+    display: inline-block;
+    padding: 0.15em 0.6em;
+    border-radius: 3px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #fff;
+}
+
+.badge.critical { background: var(--color-critical); }
+.badge.high { background: var(--color-high); }
+.badge.medium { background: var(--color-medium); }
+.badge.low { background: var(--color-low); }
+.badge.none { background: var(--color-none); }
+
+/* ---------- Vulnerability table ---------- */
+
+.vuln-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow);
+}
+
+.vuln-table thead th {
+    background: var(--color-header-bg);
+    color: var(--color-header-fg);
+    text-align: left;
+    padding: 0.65rem 0.75rem;
+    font-weight: 600;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    cursor: default;
+}
+
+.vuln-table tbody tr {
+    border-bottom: 1px solid var(--color-border);
+}
+
+.vuln-table tbody tr:nth-child(even) {
+    background: #f9fafb;
+}
+
+.vuln-table tbody td {
+    padding: 0.6rem 0.75rem;
+    vertical-align: top;
+}
+
+/* ---------- Vulnerability details ---------- */
+
+.vuln-detail {
+    background: #f6f8fa;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+    box-shadow: var(--shadow);
+}
+
+.vuln-detail h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.05rem;
+}
+
+.vuln-detail .meta {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    margin-bottom: 0.75rem;
+}
+
+.vuln-detail .meta span {
+    margin-right: 1.25rem;
+}
+
+.vuln-detail .description {
+    margin-bottom: 0.75rem;
+    white-space: pre-wrap;
+}
+
+.vuln-detail .packages-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+}
+
+.vuln-detail .packages-table th,
+.vuln-detail .packages-table td {
+    text-align: left;
+    padding: 0.35rem 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.vuln-detail .packages-table th {
+    font-weight: 600;
+    background: #eef1f5;
+}
+
+.vuln-detail .remediation {
+    background: #e8f5e9;
+    border-left: 4px solid var(--color-low);
+    padding: 0.6rem 1rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+}
+
+.vuln-detail .references {
+    font-size: 0.85rem;
+}
+
+.vuln-detail .references a {
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+.vuln-detail .references a:hover {
+    text-decoration: underline;
+}
+
+/* ---------- Footer ---------- */
+
+.report-footer {
+    text-align: center;
+    padding: 1.5rem 2rem;
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    border-top: 1px solid var(--color-border);
+    margin-top: 2rem;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 700px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .report-header {
+        padding: 1.25rem 1rem;
+    }
+
+    .summary-cards {
+        flex-direction: column;
+    }
+
+    .vuln-table {
+        font-size: 0.82rem;
+    }
+}
+
+/* ---------- Print ---------- */
+
+@media print {
+    body {
+        font-size: 12px;
+    }
+
+    .report-header {
+        background: #333;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .vuln-detail,
+    .summary-card {
+        break-inside: avoid;
+    }
+
+    .badge {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}

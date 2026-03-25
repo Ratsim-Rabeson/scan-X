@@ -1,0 +1,367 @@
+/* scan-X dark theme stylesheet */
+
+/* ── Global ─────────────────────────────────────────────────────────── */
+
+Screen {
+    background: $surface;
+}
+
+/* ── Home screen ────────────────────────────────────────────────────── */
+
+#home-container {
+    padding: 1 2;
+}
+
+#home-banner {
+    text-align: center;
+    padding: 1 0;
+    color: $accent;
+    text-style: bold;
+}
+
+#stats-row {
+    height: auto;
+    margin: 1 0;
+}
+
+.stat-box {
+    width: 1fr;
+    height: 5;
+    border: solid $primary;
+    content-align: center middle;
+    padding: 0 1;
+}
+
+.stat-box .stat-value {
+    text-style: bold;
+    text-align: center;
+    width: 100%;
+}
+
+.stat-box .stat-label {
+    text-align: center;
+    color: $text-muted;
+    width: 100%;
+}
+
+#actions-row {
+    height: auto;
+    margin: 1 0;
+    align: center middle;
+}
+
+#actions-row Button {
+    margin: 0 1;
+}
+
+#home-chart-container {
+    height: 12;
+    border: solid $primary;
+    margin: 1 0;
+    padding: 1;
+}
+
+#recent-scans-container {
+    height: auto;
+    max-height: 14;
+    border: solid $primary;
+    margin: 1 0;
+    padding: 1;
+}
+
+/* ── Search screen ──────────────────────────────────────────────────── */
+
+#search-container {
+    padding: 1 2;
+}
+
+#search-header {
+    height: auto;
+    dock: top;
+}
+
+#search-results {
+    margin: 1 0;
+}
+
+#search-loading {
+    height: auto;
+    align: center middle;
+    display: none;
+}
+
+#search-loading.visible {
+    display: block;
+}
+
+#search-empty {
+    height: auto;
+    content-align: center middle;
+    padding: 4;
+    color: $text-muted;
+}
+
+/* ── Scan screen ────────────────────────────────────────────────────── */
+
+#scan-container {
+    padding: 1 2;
+}
+
+#scan-input-row {
+    height: auto;
+    margin: 1 0;
+}
+
+#scan-input-row Input {
+    width: 3fr;
+}
+
+#scan-input-row Button {
+    width: 1fr;
+    margin: 0 0 0 1;
+}
+
+#scan-detected-type {
+    height: auto;
+    margin: 0 0 1 0;
+    color: $accent;
+}
+
+#scan-progress {
+    height: auto;
+    align: center middle;
+    display: none;
+}
+
+#scan-progress.visible {
+    display: block;
+}
+
+#scan-summary {
+    height: auto;
+    margin: 1 0;
+    border: solid $primary;
+    padding: 1;
+    display: none;
+}
+
+#scan-summary.visible {
+    display: block;
+}
+
+#scan-summary-row {
+    height: auto;
+}
+
+#scan-results {
+    margin: 1 0;
+}
+
+/* ── Detail screen ──────────────────────────────────────────────────── */
+
+#detail-container {
+    padding: 1 2;
+}
+
+#detail-header {
+    height: auto;
+    margin: 0 0 1 0;
+}
+
+#detail-header-row {
+    height: auto;
+}
+
+#detail-id {
+    text-style: bold;
+    width: auto;
+}
+
+#detail-score {
+    width: auto;
+    margin: 0 0 0 2;
+    color: $warning;
+}
+
+#detail-aliases {
+    height: auto;
+    color: $text-muted;
+    margin: 0 0 1 0;
+}
+
+#detail-description-box {
+    height: auto;
+    max-height: 12;
+    border: solid $primary;
+    margin: 1 0;
+    padding: 1;
+}
+
+#detail-packages-box {
+    height: auto;
+    max-height: 10;
+    border: solid $primary;
+    margin: 1 0;
+    padding: 1;
+}
+
+#detail-references-box {
+    height: auto;
+    max-height: 8;
+    border: solid $primary;
+    margin: 1 0;
+    padding: 1;
+}
+
+#detail-remediation-box {
+    height: auto;
+    border: solid $accent;
+    margin: 1 0;
+    padding: 1;
+}
+
+.section-title {
+    text-style: bold;
+    margin: 0 0 1 0;
+}
+
+.reference-link {
+    color: $accent;
+}
+
+#detail-back-btn {
+    dock: bottom;
+    margin: 1 0;
+}
+
+/* ── Report screen ──────────────────────────────────────────────────── */
+
+#report-container {
+    padding: 1 2;
+}
+
+#report-form {
+    height: auto;
+}
+
+.form-group {
+    height: auto;
+    margin: 1 0;
+}
+
+.form-label {
+    width: 100%;
+    margin: 0 0 0 0;
+    text-style: bold;
+}
+
+.form-group Input {
+    width: 100%;
+}
+
+.form-group Select {
+    width: 100%;
+}
+
+#report-options-row {
+    height: auto;
+    margin: 1 0;
+}
+
+.option-switch {
+    width: 1fr;
+    height: auto;
+}
+
+.option-switch Horizontal {
+    height: auto;
+}
+
+#report-generate-btn {
+    margin: 2 0 1 0;
+    width: 100%;
+}
+
+#report-progress {
+    height: auto;
+    align: center middle;
+    display: none;
+}
+
+#report-progress.visible {
+    display: block;
+}
+
+#report-success {
+    height: auto;
+    border: solid $success;
+    padding: 1;
+    margin: 1 0;
+    display: none;
+}
+
+#report-success.visible {
+    display: block;
+}
+
+/* ── Settings screen ────────────────────────────────────────────────── */
+
+#settings-container {
+    padding: 1 2;
+}
+
+#settings-scroll {
+    height: 1fr;
+}
+
+.settings-section {
+    height: auto;
+    border: solid $primary;
+    margin: 1 0;
+    padding: 1;
+}
+
+.settings-section-title {
+    text-style: bold;
+    color: $accent;
+    margin: 0 0 1 0;
+}
+
+.setting-row {
+    height: auto;
+    margin: 0 0 1 0;
+}
+
+.setting-label {
+    width: 1fr;
+    content-align-vertical: middle;
+}
+
+.setting-row Input {
+    width: 2fr;
+}
+
+.setting-row Switch {
+    width: auto;
+}
+
+#settings-save-btn {
+    margin: 2 0 1 0;
+    width: 100%;
+}
+
+#settings-theme-row Select {
+    width: 2fr;
+}
+
+#settings-cache-row {
+    height: auto;
+}
+
+#settings-cache-row Input {
+    width: 1fr;
+}
+
+#settings-cache-row Button {
+    margin: 0 0 0 1;
+}
